@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import { LiquidChrome } from './components/react_bits/luiquid chrome.jsx'
 import './App.css'
 
-function App() {
+export default function App() {
   const [count, setCount] = useState(0)
   // Este componente solo renderiza el fondo animado con LiquidChrome
   return (
@@ -21,5 +21,3 @@ function App() {
     </>
   )
 }
-
-export default App

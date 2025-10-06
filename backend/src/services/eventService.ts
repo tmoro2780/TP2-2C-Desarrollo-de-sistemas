@@ -19,10 +19,10 @@ export class EventService {
     }
 
     // Obtener un evento por su ID
-    async getEventById(id: number) {
+    async getEventById(id_evento: number) {
         try {
             const evento = await db.eventos.findUnique({
-                where: { id }
+                where: { id_evento }
             });
             return evento;
         } catch (error) {
@@ -32,11 +32,22 @@ export class EventService {
     }
 
     // Crear un nuevo evento
-    async createEvent(data: { name: string; category: string; date: Date; location: string; description?: string; price: number; image: string; }) {
+    async createEvent(data: { name: string; category: number; date: Date; location?: string; description?: string; price: number; image?: string; }) {
         try {
             const newEvent = await db.eventos.create({
-                data
-            });
+                data: {
+                    nombre: data.name,
+                    categoria: data.category,
+                    descripcion: data.description,
+                    ubicacion: data.location,
+                    fecha_evento: data.date,
+                    precio: data.price,
+                    imagen: data.image,
+                    data: new Date(),
+                    estado: 1,
+                },
+            }
+        );
             return newEvent;
         } catch (error) {
             console.error(error);
@@ -45,10 +56,10 @@ export class EventService {
     }
 
     // Eliminar un evento por su ID
-    async deleteEvent(id: number) {
+    async deleteEvent(id_evento: number) {
         try {
             await db.eventos.delete({
-                where: { id }
+                where: { id_evento }
             });
             return { message: "Evento eliminado correctamente." };
         } catch (error) {
@@ -58,11 +69,21 @@ export class EventService {
     }
 
     // Actualizar un evento por su ID
-    async updateEvent(id: number, data: { name?: string; category?: string; date?: Date; location?: string; description?: string; price?: number; image?: string; }) {
+    async updateEvent(id_evento: number, data: { name?: string; category?: string; date?: Date; location?: string; description?: string; price?: number; image?: string; }) {
         try {
             const updatedEvent = await db.eventos.update({
-                where: { id },
-                data
+                where: { id_evento },
+                data: {                    
+                    nombre: data.name,
+                    categoria: data.category,
+                    descripcion: data.description,
+                    ubicacion: data.location,
+                    fecha_evento: data.date,
+                    precio: data.price,
+                    imagen: data.image,
+                    data: new Date(),
+                    estado: 1,
+                },
             });
             return updatedEvent;
         } catch (error) {
