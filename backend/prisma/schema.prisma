@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../db/EventoDB.db"
+}
+
+model CatregoriaEvento {
+  id_categoria_evento Int    @id @unique(map: "sqlite_autoindex_CatregoriaEvento_1") @default(autoincrement())
+  nombre              String
+}
+
+model EntradaAsistencia {
+  id_asistencia   Int             @id @unique(map: "sqlite_autoindex_EntradaAsistencia_1") @default(autoincrement())
+  evento          Int
+  usuario         Int
+  registro_compra Int?            @unique(map: "sqlite_autoindex_EntradaAsistencia_2")
+  activa          Int
+  fecha_alta      String
+  Usuario         Usuario         @relation(fields: [usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+  RegistroCompra  RegistroCompra? @relation(fields: [registro_compra], references: [id_compra], onDelete: NoAction, onUpdate: NoAction)
+  Eventos         Eventos         @relation(fields: [evento], references: [id_evento], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model EstadoEvento {
+  id_estado_evento Int       @id @unique(map: "sqlite_autoindex_EstadoEvento_1") @default(autoincrement())
+  nombre           String
+  Eventos          Eventos[]
+}
+
+model Eventos {
+  id_evento         Int                 @id @unique(map: "sqlite_autoindex_Eventos_1") @default(autoincrement())
+  id_creador        Int
+  nombre            String
+  categoria         Int
+  descripcion       String?
+  ubicacion         String?
+  fecha_evento      String
+  precio            Float
+  imagen            String?
+  fecha_creacion    String
+  estado            Int
+  EntradaAsistencia EntradaAsistencia[]
+  Usuario           Usuario             @relation(fields: [id_creador], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+  EstadoEvento      EstadoEvento        @relation(fields: [estado], references: [id_estado_evento], onDelete: NoAction, onUpdate: NoAction)
+  RegistroCompra    RegistroCompra[]
+}
+
+model MetodoPago {
+  id_metodo_pago     Int                  @id @unique(map: "sqlite_autoindex_MetodoPago_1") @default(autoincrement())
+  nombre             String
+  RegistroCargoSaldo RegistroCargoSaldo[]
+}
+
+model RegistroCargoSaldo {
+  id_cargo_saldo Int        @id @unique(map: "sqlite_autoindex_RegistroCargoSaldo_1") @default(autoincrement())
+  monto          Float
+  id_usuario     Int
+  metodo_pago    Int
+  fecha_carga    String
+  MetodoPago     MetodoPago @relation(fields: [metodo_pago], references: [id_metodo_pago], onDelete: NoAction, onUpdate: NoAction)
+  Usuario        Usuario    @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model RegistroCompra {
+  id_compra         Int                @id @unique(map: "sqlite_autoindex_RegistroCompra_1") @default(autoincrement())
+  evento            Int
+  comprador         Int
+  canitdad_entradas Int
+  monto_total       Float
+  fecha_compra      String
+  EntradaAsistencia EntradaAsistencia?
+  Eventos           Eventos            @relation(fields: [evento], references: [id_evento], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Usuario {
+  id_usuario         Int                  @id @unique(map: "sqlite_autoindex_Usuario_1") @default(autoincrement())
+  username           String               @unique(map: "sqlite_autoindex_Usuario_2")
+  nombre_pila        String
+  apellido           String
+  DNI                Int                  @unique(map: "sqlite_autoindex_Usuario_3")
+  email              String               @unique(map: "sqlite_autoindex_Usuario_4")
+  password           String
+  saldo              Float                @default(0)
+  de_baja            Int                  @default(0)
+  EntradaAsistencia  EntradaAsistencia[]
+  Eventos            Eventos[]
+  RegistroCargoSaldo RegistroCargoSaldo[]
+}
