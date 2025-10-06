@@ -32,18 +32,19 @@ export class EventService {
     }
 
     // Crear un nuevo evento
-    async createEvent(data: { name: string; category: number; date: Date; location?: string; description?: string; price: number; image?: string; }) {
+    async createEvent(data: { id_author: number, name: string; category: number; date: Date; location?: string; description?: string; price: number; image?: string; }) {
         try {
             const newEvent = await db.eventos.create({
                 data: {
+                    id_creador: data.id_author,
                     nombre: data.name,
                     categoria: data.category,
                     descripcion: data.description,
                     ubicacion: data.location,
-                    fecha_evento: data.date,
+                    fecha_evento: data.date.toDateString(),
                     precio: data.price,
                     imagen: data.image,
-                    data: new Date(),
+                    fecha_creacion: new Date().toDateString(),
                     estado: 1,
                 },
             }
@@ -52,19 +53,6 @@ export class EventService {
         } catch (error) {
             console.error(error);
             throw new Error("Ocurrió un error al crear el evento.");
-        }
-    }
-
-    // Eliminar un evento por su ID
-    async deleteEvent(id_evento: number) {
-        try {
-            await db.eventos.delete({
-                where: { id_evento }
-            });
-            return { message: "Evento eliminado correctamente." };
-        } catch (error) {
-            console.error(error);
-            throw new Error("Ocurrió un error al eliminar el evento.");
         }
     }
 
@@ -78,7 +66,7 @@ export class EventService {
                     categoria: data.category,
                     descripcion: data.description,
                     ubicacion: data.location,
-                    fecha_evento: data.date,
+                    fecha_evento: data.date?.toDateString(),
                     precio: data.price,
                     imagen: data.image,
                     data: new Date(),
