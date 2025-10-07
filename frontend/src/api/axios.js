@@ -2,7 +2,8 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: 'https://symmetrical-train-jjg575pgxpx435vgx-3000.app.github.dev/',
+  baseURL: 'http://localhost:3000',
+  withCredentials: true,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',

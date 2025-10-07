@@ -28,7 +28,7 @@ export default function HomePage() {
         interactive={true}
         />
         <div>
-            <h1 defaultValue={message} >Bienvenido a la página principal</h1>
+            <h1 >{message.msg}</h1>
         </div>
     </>
     )

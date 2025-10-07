@@ -6,7 +6,7 @@ import { db } from "../config/db";
 // sobre la tabla usuarios en la base de datos.
 export class AuthService {
     // Crear un nuevo usuario 
-    createUser(data: { username: string; name: string; dni: BigInteger; email:string; password: string; }) {
+    createUser(data: { username: string; name: string; dni: number; email:string; password: string; }) {
         try{
             const newUser = db.usuario.create({
                 data

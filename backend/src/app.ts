@@ -9,7 +9,7 @@ export const app = express();
 
 // Configuración de CORS Permite las solicitudes desde el frontend
 app.use(cors({
-  origin: 'https://symmetrical-train-jjg575pgxpx435vgx-5173.app.github.dev/', // ← frontend
+  origin: 'http://localhost:5173', // ← frontend
   credentials: true, // si usas cookies o tokens con credenciales
 }));
 
