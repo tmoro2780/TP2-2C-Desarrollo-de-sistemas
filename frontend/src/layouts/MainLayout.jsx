@@ -1,8 +1,16 @@
-import App from "../App"
+import { Outlet } from "react-router-dom"
+import NavbarGuest from "../components/NavbarGuest"
 
 export default function MainLayout() {
     return (
-        <App />
-        //Agregar header y footer (Navbar y footer falta los componentes)
+        <><header>
+            <NavbarGuest> </NavbarGuest>
+        </header>
+        <main>
+            <Outlet />
+        </main>
+        <footer>
+            <p>© 2025 Mi Aplicación. Todos los derechos reservados.</p>
+        </footer></>
     )
 }
