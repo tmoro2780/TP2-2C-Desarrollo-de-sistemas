@@ -1,8 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { LiquidChrome } from './../components/react_bits/luiquid chrome'
-
+import { axiosInstance } from '../api/axios.js'
 export default function HomePage() {
-    const [count, setCount] = useState(0)
+    const [message, setMessage] = useState("Seba se la come");
+    
+    useEffect(() => {
+        axiosInstance.get('/')
+            .then(response => {
+                setMessage(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching data from backend:", error);
+            });
+    }, []);
+
+    console.log(message);
+    
     return (
     <>
         <LiquidChrome
@@ -15,7 +28,7 @@ export default function HomePage() {
         interactive={true}
         />
         <div>
-            <h1>Bienvenido a la página principal</h1>
+            <h1 defaultValue={message} >Bienvenido a la página principal</h1>
         </div>
     </>
     )
