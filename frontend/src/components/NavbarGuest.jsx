@@ -13,7 +13,7 @@ export default function NavbarGuest(){
                     <NavLink to='/login'>Iniciar Sesión</NavLink>
                 </li>
                 <li>
-                    <NavLink to='/'>AAA</NavLink>
+                    <NavLink to='/eventos'>Eventos</NavLink>
                 </li>
 
             </ul>

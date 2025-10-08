@@ -38,7 +38,8 @@ export default function Signup(){
                 <label>DNI</label>
                 <input 
                 type="number" 
-                required maxlength="8"
+                required 
+                maxLength="8"
                 value={DNI}
                 onChange={(e) => setDNI(e.target.value)}
                 />
