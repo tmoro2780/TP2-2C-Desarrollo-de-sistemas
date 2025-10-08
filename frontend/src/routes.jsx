@@ -9,7 +9,8 @@ export default function AppRoutes() {
             <Route element={<MainLayout />}>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/signup" element={<SignUp />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login />} /> 
+                <Route path="/logout" element={<Navigate to="/" replace />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
         </Routes>
