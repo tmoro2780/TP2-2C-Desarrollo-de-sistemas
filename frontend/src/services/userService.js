@@ -8,12 +8,6 @@ export const getUsers = async () => {
     return response.data;
 };
 
-// POST: Crear un nuevo usuario
-export const createUser = async (userData) => {
-    const response = await axiosInstance.post("/usuario", userData); // POST http://localhost:3000/usuarios
-    return response.data;
-};
-
 // GET: Obtener todas las entradas de un usuario
 export const getUserEntries = async (userId) => {
     const response = await axiosInstance.get(`/usuario/${userId}/entradas`);

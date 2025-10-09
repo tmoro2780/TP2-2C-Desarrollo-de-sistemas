@@ -9,8 +9,7 @@ export class EventService {
     // Obtener todos los eventos
     async getAllEvents() {
         try {
-            const eventos = db.eventos.findMany();
-
+            const eventos = await db.eventos.findMany();
             return eventos;
         } catch (error) {
             console.error(error);
@@ -32,32 +31,32 @@ export class EventService {
     }
 
     // Crear un nuevo evento
-    async createEvent(data: { id_author: number, name: string; category: number; date: Date; location?: string; description?: string; price: number; image?: string; }) {
-        try {
-            const newEvent = await db.eventos.create({
-                data: {
-                    id_creador: data.id_author,
-                    nombre: data.name,
-                    categoria: data.category,
-                    descripcion: data.description,
-                    ubicacion: data.location,
-                    fecha_evento: data.date.toDateString(),
-                    precio: data.price,
-                    imagen: data.image,
-                    fecha_creacion: new Date().toDateString(),
-                    estado: 1,
-                },
-            }
-        );
-            return newEvent;
-        } catch (error) {
-            console.error(error);
-            throw new Error("Ocurrió un error al crear el evento.");
-        }
-    }
+    //async createEvent(data: { id_author: number, name: string; category: number; date: Date; location?: string; description?: string; price: number; image?: string; }) {
+    //    try {
+    //       const newEvent = await db.eventos.create({
+    //           data: {
+    //               id_creador: data.id_author,
+    //               nombre: data.name,
+    //               categoria: data.category,
+    //               descripcion: data.description,
+    //               ubicacion: data.location,
+    //                fecha_evento: data.date.toDateString(),
+    //                precio: data.price,
+    //                imagen: data.image,
+    //                fecha_creacion: new Date().toDateString(),
+    //                estado: 1,
+    //            },
+    //        }
+    //    );
+    //        return newEvent;
+    //    } catch (error) {
+    //        console.error(error);
+    //        //        throw new Error("Ocurrió un error al crear el evento.");
+    //    }
+    //}
 
     // Actualizar un evento por su ID
-    async updateEvent(id_evento: number, data: { name?: string; category?: string; date?: Date; location?: string; description?: string; price?: number; image?: string; }) {
+    /*async updateEvent(id_evento: number, data: { name?: string; category?: string; date?: Date; location?: string; description?: string; price?: number; image?: string; }) {
         try {
             const updatedEvent = await db.eventos.update({
                 where: { id_evento },
@@ -79,5 +78,6 @@ export class EventService {
             throw new Error("Ocurrió un error al actualizar el evento.");
         }
     }
+    */    
 
 }

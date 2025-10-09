@@ -4,19 +4,20 @@ export default function EventsPage() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        try{
-            const fetchEvents = async () => {
-                const eventsData = await getAllEvents();
-                setEvents(eventsData);
-            };
-            fetchEvents();
-        } 
-        catch (error) {
+        const fetchEvents = async () => {
+        try {
+            const eventsData = await getAllEvents();
+            // si tu backend devuelve { ok: true, data: [...] }
+            // deberías hacer: setEvents(eventsData.data);
+            setEvents(eventsData.data || eventsData);
+        } catch (error) {
             console.error("Error fetching events:", error);
         }
+        };
+        fetchEvents();
     }, []);
 
-    console.log(events);
+
     if (!events.length) {
         return <div>No hay eventos disponibles.</div>;
     }
@@ -28,7 +29,15 @@ export default function EventsPage() {
             <ul>
                 {events.map((item) => (
                     <li key={item.id}>
-                        {item.nombre} - {item.categoria} - {item.fecha_evento}
+                        <h2>
+                            {item.nombre} 
+                        </h2>
+                        <p>{item.descripcion}</p>
+                        <p>categoria: {item.categoria}</p>
+                        <p>fecha: {item.fecha_evento}</p>
+                        <p>ubicacion: {item.ubicacion}</p>
+                        <p>precio: ${item.precio}</p>
+                        <img src={item.imagen} alt="" />
                     </li>
                 ))}
             </ul>

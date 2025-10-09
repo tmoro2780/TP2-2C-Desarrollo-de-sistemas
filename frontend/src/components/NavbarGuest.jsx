@@ -15,7 +15,6 @@ export default function NavbarGuest(){
                 <li>
                     <NavLink to='/eventos'>Eventos</NavLink>
                 </li>
-
             </ul>
         </nav>
     )

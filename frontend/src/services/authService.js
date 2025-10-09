@@ -12,3 +12,10 @@ export const loginUser = async (email, password) => {
     const response = await axiosInstance.post("/login", { email, password });
     return response.data;
 };
+
+// POST: Cierra la sesion del usuario
+export const logoutUser = async () => {
+    const response = await axiosInstance.post("/logout");
+    return response.data;
+
+};
