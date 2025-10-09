@@ -16,6 +16,10 @@ export default function EventsPage() {
         }
     }, []);
 
+    console.log(events);
+    if (!events.length) {
+        return <div>No hay eventos disponibles.</div>;
+    }
     return (
         <div>
             <h1>Pagina de Eventos</h1>

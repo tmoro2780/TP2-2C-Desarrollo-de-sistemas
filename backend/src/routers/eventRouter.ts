@@ -4,7 +4,7 @@ import { EventService } from "../services/eventService";
 export const event_router = Router();
 const event_service = new EventService();
 
-event_router.get('/', async (_, res) => {
+event_router.get('/eventos', async (_, res) => {
     try {
         const events = await event_service.getAllEvents();
         res.status(200).json({ ok: true, data: events });
