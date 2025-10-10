@@ -1,12 +1,31 @@
-import { useState } from "react"; 
-
+import { useEffect, useState } from "react"; 
+import { createUser } from '../../services/authService'
 export default function Signup(){
     const [Username, setUsername] = useState("");
     const [FirstName, setFirstName] = useState("");
-    const [LastName, setLastName] = useState("");
+    const [SurName, setSurName] = useState("");
     const [DNI, setDNI] = useState("");
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+        try {
+            data = {
+                username: Username,
+                name: FirstName,
+                surname: SurName,
+                dni: DNI,
+                email: Email,
+                password: Password,
+            };
+            await createUser(data);
+        } catch (error) {
+            console.error("Error Signup:", error);
+        }
+        };
+        fetchEvents();
+    }, []);
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -31,8 +50,8 @@ export default function Signup(){
                 <input 
                 type="text" 
                 required 
-                value={LastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={SurName}
+                onChange={(e) => setSurName(e.target.value)}
                 />
 
                 <label>DNI</label>
@@ -67,7 +86,7 @@ export default function Signup(){
                 <ul>
                     <li>{Username}</li>
                     <li>{FirstName}</li>
-                    <li>{LastName}</li>
+                    <li>{SurName}</li>
                     <li>{DNI}</li>
                     <li>{Email}</li>
                     <li>{Password}</li>

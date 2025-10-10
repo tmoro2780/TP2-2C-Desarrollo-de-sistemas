@@ -9,7 +9,7 @@ export const getUsers = async () => {
 };
 
 // GET: Obtener todas las entradas de un usuario
-export const getUserEntries = async (userId) => {
+export const getUserTickets = async (userId) => {
     const response = await axiosInstance.get(`/usuario/${userId}/entradas`);
     return response.data;
 }

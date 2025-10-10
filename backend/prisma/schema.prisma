@@ -9,8 +9,9 @@ datasource db {
 }
 
 model CatregoriaEvento {
-  id_categoria_evento Int    @id @unique(map: "sqlite_autoindex_CatregoriaEvento_1") @default(autoincrement())
+  id_categoria_evento Int       @id @unique(map: "sqlite_autoindex_CatregoriaEvento_1") @default(autoincrement())
   nombre              String
+  Eventos             Eventos[]
 }
 
 model EntradaAsistencia {
@@ -46,6 +47,7 @@ model Eventos {
   EntradaAsistencia EntradaAsistencia[]
   Usuario           Usuario             @relation(fields: [id_creador], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
   EstadoEvento      EstadoEvento        @relation(fields: [estado], references: [id_estado_evento], onDelete: NoAction, onUpdate: NoAction)
+  CatregoriaEvento  CatregoriaEvento    @relation(fields: [categoria], references: [id_categoria_evento], onDelete: NoAction, onUpdate: NoAction)
   RegistroCompra    RegistroCompra[]
 }
 
@@ -56,13 +58,15 @@ model MetodoPago {
 }
 
 model RegistroCargoSaldo {
-  id_cargo_saldo Int        @id @unique(map: "sqlite_autoindex_RegistroCargoSaldo_1") @default(autoincrement())
-  monto          Float
-  id_usuario     Int
-  metodo_pago    Int
-  fecha_carga    String
-  MetodoPago     MetodoPago @relation(fields: [metodo_pago], references: [id_metodo_pago], onDelete: NoAction, onUpdate: NoAction)
-  Usuario        Usuario    @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+  id_cargo_saldo  Int        @id @unique(map: "sqlite_autoindex_RegistroCargoSaldo_1") @default(autoincrement())
+  monto           Float
+  saldo_anterior  Float
+  saldo_posterior Float
+  id_usuario      Int
+  metodo_pago     Int
+  fecha_carga     String
+  MetodoPago      MetodoPago @relation(fields: [metodo_pago], references: [id_metodo_pago], onDelete: NoAction, onUpdate: NoAction)
+  Usuario         Usuario    @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model RegistroCompra {

@@ -35,13 +35,13 @@ export class AuthService {
     }
     
     // valida la información de inicio de sesión
-    async loginUsuario(data: { email: string; password: string; }) {
+    async loginUser(email: string, password: string) {
         let resultado: number = 0;
 
         // se busca el usuario en la db por su email
         const user = await db.usuario.findUnique({
             where: {
-                email: data.email
+                email: email
             }
         });
 
@@ -50,7 +50,7 @@ export class AuthService {
             const clave_hash: string = user.password;
             const user_id: number = user.id_usuario;
 
-            const clave_correcta = await compare(data.password, clave_hash);
+            const clave_correcta = await compare(password, clave_hash);
 
             if (clave_correcta) {
                 resultado = user_id;

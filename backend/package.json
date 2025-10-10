@@ -13,8 +13,10 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
     "@types/node": "^24.6.2",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },

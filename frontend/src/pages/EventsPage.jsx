@@ -7,8 +7,6 @@ export default function EventsPage() {
         const fetchEvents = async () => {
         try {
             const eventsData = await getAllEvents();
-            // si tu backend devuelve { ok: true, data: [...] }
-            // deberías hacer: setEvents(eventsData.data);
             setEvents(eventsData.data || eventsData);
         } catch (error) {
             console.error("Error fetching events:", error);
